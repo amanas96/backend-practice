@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Chaos Endpoint Tester</title>
+
+    <style>
+      body {
+        font-family: Arial;
+        background: #111;
+        color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+
+      .container {
+        background: #1e1e1e;
+        padding: 30px;
+        border-radius: 10px;
+        width: 400px;
+      }
+
+      input,
+      textarea {
+        width: 100%;
+        padding: 10px;
+        margin-top: 10px;
+        background: #333;
+        border: none;
+        color: white;
+      }
+
+      button {
+        margin-top: 15px;
+        padding: 10px;
+        width: 100%;
+        background: #4caf50;
+        border: none;
+        color: white;
+        font-size: 16px;
+        cursor: pointer;
+      }
+
+      .result {
+        margin-top: 20px;
+        background: #000;
+        padding: 15px;
+        border-radius: 5px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <h2>Chaos Endpoint Tester</h2>
+
+      <label>Authorization Token</label>
+      <input id="token" placeholder="admin123 or user123" />
+
+      <label>Request Body (JSON)</label>
+      <textarea id="body">
+{
+"name":"Baba"
+}
+</textarea
+      >
+
+      <button onclick="sendRequest()">Send Request</button>
+
+      <div class="result">
+        <p>Status: <span id="status"></span></p>
+        <pre id="response"></pre>
+      </div>
+    </div>
+
+    <script>
+      async function sendRequest() {
+        const token = document.getElementById("token").value;
+        const body = document.getElementById("body").value;
+
+        try {
+          const res = await fetch("http://localhost:5000/api/chaos", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: token,
+            },
+            body: JSON.stringify(JSON.parse(body)),
+          });
+
+          const data = await res.json();
+
+          document.getElementById("status").innerText = res.status;
+          document.getElementById("response").innerText = JSON.stringify(
+            data,
+            null,
+            2,
+          );
+        } catch (err) {
+          document.getElementById("status").innerText = "ERROR";
+          document.getElementById("response").innerText = err.message;
+        }
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CORS test</title>
+  </head>
+  <body>
+    <!-- <h2>CORS Test</h2>
+
+    <button onclick="getData()">Simple Request</button>
+       <div id="result"></div>
+    <button onclick="getPreflightData()">Preflight Request</button> -->
+
+    <h2>HTTP Methods Practice</h2>
+
+    <button onclick="getUser()">GET</button>
+    <button onclick="createUser()">POST</button>
+    <button onclick="replaceUser()">PUT</button>
+    <button onclick="updateUser()">PATCH</button>
+    <button onclick="deleteUser()">DELETE</button>
+    <button onclick="Hi()">Get HTML</button>
+    <button onclick="getJSON()">Get JSON</button>
+
+    <div id="result"></div>
+
+    <script>
+      // function getData() {
+      //   fetch("http://localhost:5000/api/data")
+      //     .then((res) => res.json())
+      //     .then((data) => {
+      //       document.getElementById("result").innerText = JSON.stringify(data);
+      //     });
+      // }
+
+      // async function getPreflightData() {
+      //   const res = await fetch("http://localhost:5000/api/preflight-data", {
+      //     method: "POST",
+      //     headers: {
+      //       "Content-Type": "application/json",
+      //     },
+      //     body: JSON.stringify({ name: "test" }),
+      //   });
+      //   const data = await res.json();
+      //   document.getElementById("preflight-result").innerText =
+      //     JSON.stringify(data);
+      // }
+
+      const API_URL = "http://localhost:5000/api/user";
+      const API_URL_DATA = "http://localhost:5000/api/data";
+
+      async function getUser() {
+        const res = await fetch(API_URL);
+        const data = await res.json();
+
+        show(res, data);
+      }
+      async function createUser() {
+        const res = await fetch(API_URL, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            name: "Jane Doe",
+            age: 25,
+          }),
+        });
+        const data = await res.json();
+        show(res, data);
+      }
+      async function updateUser() {
+        const res = await fetch(API_URL, {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            age: 40,
+          }),
+        });
+        const data = await res.json();
+        show(res, data);
+      }
+
+      async function replaceUser() {
+        const res = await fetch(API_URL, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            name: "Aman",
+            age: 35,
+          }),
+        });
+        const data = await res.json();
+        show(res, data);
+      }
+
+      async function deleteUser() {
+        const res = await fetch(API_URL, {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+        show(res, { message: "User deleted" });
+      }
+
+      async function Hi() {
+        const res = await fetch(API_URL_DATA, {
+          cache: "no-cache",
+          headers: {
+            Accept: "text/html",
+          },
+        });
+        const data = await res.text();
+        show(res, data);
+      }
+
+      async function getJSON() {
+        const res = await fetch(API_URL_DATA, {
+          cache: "no-cache",
+          headers: {
+            Accept: "application/json",
+          },
+        });
+        const data = await res.json();
+        show(res, data);
+      }
+
+      function show(res, data) {
+        const result = document.getElementById("result");
+        if (typeof data === "string") {
+          result.innerHTML = `Status:${res.status}` + data;
+        } else {
+          result.innerText =
+            `Status: ${res.status}\n\n` + JSON.stringify(data, null, 2);
+        }
+      }
+    </script>
+  </body>
+</html>
