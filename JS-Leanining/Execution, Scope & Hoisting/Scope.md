@@ -1,4 +1,108 @@
-## PHASE 1: CONCEPT CLARITY
+# Scope
+
+# 🧠 1. Global Scope
+
+> Global scope refers to variables that are declared outside of any function or block and are accessible anywhere in the program.
+
+```js
+const a = 10; // global scope
+```
+
+👉 Accessible from any function or block
+
+---
+
+# 🧠 2. Function Scope
+
+> Function scope means variables declared inside a function are only accessible within that function.
+
+```js
+function test() {
+  let b = 20; // function scope
+}
+```
+
+👉 Cannot be accessed outside the function
+
+---
+
+# 🧠 3. Block Scope
+
+> Block scope refers to variables declared inside a block (`{}`) using `let` or `const`, which are only accessible within that block.
+
+```js
+if (true) {
+  let x = 5; // block scope
+}
+```
+
+👉 Not accessible outside the block
+
+---
+
+# 🧠 4. Lexical Scope
+
+> Lexical scope means that the scope of a variable is determined by its position in the source code (where it is written), not where it is called.
+
+```js
+function outer() {
+  let x = 10;
+
+  function inner() {
+    console.log(x); // uses lexical scope
+  }
+
+  inner();
+}
+```
+
+👉 Inner function can access outer variables
+
+---
+
+# 🧠 5. Module Scope (ES6)
+
+> Module scope refers to variables declared inside a module (file) that are not accessible outside unless explicitly exported.
+
+```js
+// file1.js
+const data = 100; // module scope
+export default data;
+```
+
+👉 Hidden from other files unless exported
+
+---
+
+# 🧠 6. Local Scope (General Term)
+
+> Local scope refers to variables declared inside a function or block, which are not accessible outside that local context.
+
+👉 It includes:
+
+- Function scope
+- Block scope
+
+---
+
+# 🎯 Quick Summary Table
+
+| Scope Type | Accessible Where?                    |
+| ---------- | ------------------------------------ |
+| Global     | Everywhere                           |
+| Function   | Inside that function only            |
+| Block      | Inside `{}` block only               |
+| Lexical    | Based on code structure              |
+| Module     | Inside file/module                   |
+| Local      | Inside function/block (general term) |
+
+---
+
+# 🧠 Final One-Line Summary
+
+> Scope defines where variables are accessible, and JavaScript uses lexical scoping to determine access based on code structure.
+
+---
 
 ### 1. What is it?
 
